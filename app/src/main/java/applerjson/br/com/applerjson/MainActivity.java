@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -29,6 +30,14 @@ public class MainActivity extends Activity {
     }
 
     private class LerJsonAsyncTask extends AsyncTask <String, Void, String[]> {
+
+
+        //metodo para exibir somente uma mensagem para o usuario indicando a leitura do arquivo .json
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Toast.makeText(getBaseContext(),"Lendo Arquivo Json", Toast.LENGTH_LONG).show();
+        }
 
         @Override
         protected String[] doInBackground(String... strings) {
