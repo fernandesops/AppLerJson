@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.io.InputStream;
+
 public class MainActivity extends Activity {
 
     @Override
@@ -39,9 +41,17 @@ public class MainActivity extends Activity {
             Toast.makeText(getBaseContext(),"Lendo Arquivo Json", Toast.LENGTH_LONG).show();
         }
 
+
+        //metodo para executar o processo de leitura do arquivo
         @Override
         protected String[] doInBackground(String... strings) {
             return new String[0];
         }
+    }
+
+    //metodo para a leitura do arquivo Json
+    private String[] lerJson(String url) {
+        InputStream is = null;
+        String[] strArray = null;
     }
 }
