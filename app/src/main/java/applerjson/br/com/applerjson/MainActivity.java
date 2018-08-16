@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class MainActivity extends Activity {
 
@@ -52,6 +54,22 @@ public class MainActivity extends Activity {
     //metodo para a leitura do arquivo Json
     private String[] lerJson(String url) {
         InputStream is = null;
-        String[] strArray = null;
+        String[] strClientes = null;
+
+        try{
+            //acesso a o webservice que retorna o JSON
+            //url contem caminho do arquivo JSON
+            is = NetworkUtils.OpenHttpConnection(url, this);
+
+
+            //o InputStream é adicionado em um buffer
+            BufferedReader streamReader = new BufferedReader(new InputStreamReader(is,"UTF-8"));
+            StringBuilder jsonStrBuilder = new StringBuilder();
+
+            String inputStr;
+        }
+
+
+
     }
 }
