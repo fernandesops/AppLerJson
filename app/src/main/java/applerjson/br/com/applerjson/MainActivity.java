@@ -3,11 +3,17 @@ package applerjson.br.com.applerjson;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -49,6 +55,11 @@ public class MainActivity extends Activity {
         protected String[] doInBackground(String... strings) {
             return new String[0];
         }
+
+        @Override
+        protected void onPostExecute(String[] strings) {
+            super.onPostExecute(strings);
+        }
     }
 
     //metodo para a leitura do arquivo Json
@@ -67,9 +78,30 @@ public class MainActivity extends Activity {
             StringBuilder jsonStrBuilder = new StringBuilder();
 
             String inputStr;
+
+            //utilizando para ler o conteudo retornado
+            while ((inputStr = streamReader.readLine()) != null)jsonStrBuilder.append(inputStr);
+
+
+            //o arquivo é transformado em um objeto JSONObject
+            JSONObject jobj = new JSONObject(jsonStrBuilder.toString());
+
+            JSONArray jArray = jobj.getJSONArray("items");
+            strClientes = new String[jArray.length()];
+
+            //transforma o objeto JSON em um ArrayString
+            for(int i = 0; i < jArray.length(); i++) {
+                // o valor da chave nome e atribuido desse objeto para o array
+                JSONObject jObject = jArray.getJSONObject(i);
+                strClientes[i] = jObject.getString("nome");
+            }
+        } catch (IOException ie) {
+            Log.i("readJson", ie.getLocalizedMessage());
+        } catch (JSONException e) {
+            Log.i("readJson", e.getLocalizedMessage());
         }
-
-
-
+        return strClientes;
     }
+
+
 }
