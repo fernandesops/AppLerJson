@@ -5,7 +5,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -31,7 +33,7 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
                 //instanciar a classe para leitura do arquivo JSON
                 //declarando no caminho do url
-                new LerJsonAsyncTask().execute("");
+                new LerJsonAsyncTask().execute("https://android-avancado-treinaweb.appspot.com/_ah/api/app/v1/cliente");
             }
         });
 
@@ -45,20 +47,27 @@ public class MainActivity extends Activity {
         //metodo para exibir somente uma mensagem para o usuario indicando a leitura do arquivo .json
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();
             Toast.makeText(getBaseContext(),"Lendo Arquivo Json", Toast.LENGTH_LONG).show();
         }
 
 
         //metodo para executar o processo de leitura do arquivo
         @Override
-        protected String[] doInBackground(String... strings) {
-            return new String[0];
+        protected String[] doInBackground(String... psrams) {
+            return lerJson(psrams[0]);
         }
 
+        //metodo responsavel em exibir os dados desejadoos
+        //no listview (nome cliente)
         @Override
         protected void onPostExecute(String[] strings) {
-            super.onPostExecute(strings);
+            ListView list = (ListView) findViewById(R.id.lstClientes);
+            try{
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_list_item_1,strings);
+                list.setAdapter(adapter);
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

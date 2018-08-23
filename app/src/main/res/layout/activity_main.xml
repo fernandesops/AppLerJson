@@ -18,6 +18,7 @@
         android:textSize="23sp" />
 
     <ListView
+        android:id="@+id/lstClientes"
         android:layout_width="match_parent"
         android:layout_height="390dp"
         android:layout_alignParentStart="true"
